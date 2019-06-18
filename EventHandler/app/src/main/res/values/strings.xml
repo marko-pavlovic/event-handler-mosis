@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Event Handler</string>
+    <string name="title_activity_glavni">GlavniActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard"></string>
+    <string name="title_friends">Friends</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_event_text">Dodaj Dogadjaj</string>
+    <string name="add_friend_text">Dodaj Prijatlja</string>
+    <string name="show_events_text">Prikazi Dogadjaje</string>
+    <string name="show_friends_text">Prikazi Prijatelje</string>
+    <string name="change_interest_text">Izmeni Interesovanja</string>
+    <string name="settings_text">Podesavanja</string>
+    <string name="show_map_text">Show Map</string>
+</resources>
