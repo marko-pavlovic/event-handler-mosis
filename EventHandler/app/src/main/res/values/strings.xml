@@ -14,4 +14,7 @@
     <string name="change_interest_text">Izmeni Interesovanja</string>
     <string name="settings_text">Podesavanja</string>
     <string name="show_map_text">Show Map</string>
+    <string name="title_activity_glavni2">Glavni2Activity</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_map">MapActivity</string>
 </resources>
