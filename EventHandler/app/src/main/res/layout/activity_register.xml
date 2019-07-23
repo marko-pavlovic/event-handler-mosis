@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#FFF" >
+
+    <include layout="@layout/content_sign_up" />
+
+    <Button
+        android:text="Sign up!"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:textColor="#FFFF"
+        android:id="@+id/NewMemberButton"
+        android:background="@color/colorAccent"/>
+
+
+    <Button
+        android:text="Add picture"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:textColor="#FFFF"
+        android:id="@+id/pictureButton"
+        android:background="@color/colorAccent"/>
+
+    <Button
+        android:text="Already a member?"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:id="@+id/AlReadyButton"
+        android:background="@null"
+        android:textColor="@color/colorAccent"
+        android:layout_marginBottom="10dp"
+        />
+
+</LinearLayout>

@@ -2,6 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.event_handler">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +25,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".my_camera"></activity>
+        <activity android:name=".MejnActivity" />
+        <activity android:name=".NewPassActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ImageProfileActivity" />
+        <activity android:name=".GlavniActivity" />
+
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"
@@ -18,15 +41,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.event_handler.GlavniActivity" />
         </activity>
+
         <activity
-            android:name=".GlavniActivity"
-            android:label="@string/title_activity_glavni">
+            android:name=".RegisterActivity"
+            android:label="Regi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".MainActivity">
 
             <!--
