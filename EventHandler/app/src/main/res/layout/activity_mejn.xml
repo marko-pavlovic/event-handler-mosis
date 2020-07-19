@@ -15,7 +15,7 @@
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/kullaniciSil"
+        android:id="@+id/deleteUser"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:textStyle="bold"
         android:background="@android:color/holo_blue_bright"/>
     <Button
-        android:id="@+id/cikis_yap"
+        android:id="@+id/logout"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,5 +34,17 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:background="@color/colorAccent"/>
+
+    <Button
+        android:id="@+id/btnBaza"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload To Database" />
+
+    <Button
+        android:id="@+id/btnAddPicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add picture" />
 
 </LinearLayout>

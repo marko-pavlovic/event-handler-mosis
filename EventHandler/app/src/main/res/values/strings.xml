@@ -17,4 +17,5 @@
     <string name="title_activity_glavni2">Glavni2Activity</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="add_friend">Add friend</string>
 </resources>

@@ -30,11 +30,11 @@ public class GlavniActivity extends AppCompatActivity {
                     toolbar.setTitle("Main");
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_events:
-                    fragment = new EventsFragment();
-                    toolbar.setTitle("Events");
-                    loadFragment(fragment);
-                    return true;
+//                case R.id.navigation_events:
+//                    fragment = new EventsFragment();
+//                    toolbar.setTitle("Events");
+//                    loadFragment(fragment);
+//                    return true;
                 case R.id.navigation_friends:
                     fragment = new FriendsFragment();
                     toolbar.setTitle("Friends");

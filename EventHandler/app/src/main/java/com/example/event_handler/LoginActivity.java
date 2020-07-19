@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.app.ProgressDialog;
 
 import com.example.event_handler.MainActivity;
 import com.example.event_handler.R;
@@ -24,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
@@ -32,6 +35,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     EditText loginEmail,loginPassword;
     Button loginButton,registerButton,newPassButton;
+    private FirebaseUser curentUser;
+    private ProgressDialog PD;
     private static final int RC_SIGN_IN = 9001;
     private SignInButton signInButton;
 
@@ -80,6 +85,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+
+
         newPassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,11 +94,57 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String email = loginEmail.getText().toString();
+                String password = loginPassword.getText().toString();
+
+                if(TextUtils.isEmpty(email)){
+                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(password)){
+                    Toast.makeText(getApplicationContext(),"Please fill in the required fields",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                signIn();
+
+            }
+        });
+
+
     }
 
     private void signIn() {
-        Intent signIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signIntent,RC_SIGN_IN);
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        curentUser=null;
+        String email = loginEmail.getText().toString();
+        String pass = loginPassword.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email,pass)
+                .addOnCompleteListener(LoginActivity.this,new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            LoginActivity.this.curentUser = mAuth.getCurrentUser();
+                            Toast.makeText(LoginActivity.this, "Authentication success.",
+                                    Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),MejnActivity.class));
+                            //test
+                            //downloadUserInfo(MainActivity.this.curentUser.getUid());
+                        } else {
+                            //Display error dialog
+                            //errorDialog.show("Error",task.getException().getMessage());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            //PD.dismiss();
+                        }
+                    }
+                });
+//        Intent signIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+//        startActivityForResult(signIntent,RC_SIGN_IN);
     }
 
     @Override

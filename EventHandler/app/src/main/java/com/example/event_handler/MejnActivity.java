@@ -1,6 +1,7 @@
 package com.example.event_handler;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,22 +14,46 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MejnActivity extends AppCompatActivity {
     TextView textView;
-    Button btnDeleteUser,btnLogout;
+    Button btnDeleteUser,btnLogout,btnUploadToDatabase, btnAddPicture;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener  authStateListener;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private DatabaseReference dbrMessage;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Users");
+    private DatabaseReference mDatabase;
+    String uriProfileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mejn);
         textView = (TextView) findViewById(R.id.textView1);
-        btnDeleteUser =(Button) findViewById(R.id.kullaniciSil);
-        btnLogout =(Button) findViewById(R.id.cikis_yap);
+        btnDeleteUser =(Button) findViewById(R.id.deleteUser);
+        btnUploadToDatabase =(Button) findViewById(R.id.btnBaza);
+        btnAddPicture =(Button) findViewById(R.id.btnAddPicture);
+        btnLogout =(Button) findViewById(R.id.logout);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         firebaseAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user != null)
+        {
+            textView.setText("Hi " + user.getPhoneNumber());
+        }
+        else
+        {
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+        }
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -41,8 +66,18 @@ public class MejnActivity extends AppCompatActivity {
             }
         };
 
-        final FirebaseUser user  = firebaseAuth.getCurrentUser();
-        textView.setText("Hi " + user.getDisplayName());
+
+
+        btnUploadToDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(user!=null){
+                    //writeNewUser(user.getUid(),"Pera", "Peric", "pera@mejl.com", "Perica", "0654243235");
+                    uriProfileImage = "asdasdoji.jpg";
+                    mDatabase.child("Users").child(user.getUid()).child("ProfilePicURI").setValue(uriProfileImage);
+                }
+            }
+        });
 
         btnDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +89,7 @@ public class MejnActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(getApplicationContext(),"User deleted",Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+                                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                         finish();
                                     }
                                 }
@@ -75,10 +110,17 @@ public class MejnActivity extends AppCompatActivity {
 
     }
 
+    private void writeNewUser(String userId, String FirstName, String LastName, String email, String username, String phone) {
+        User user = new User(FirstName,LastName, email, username, phone);
+
+        mDatabase.child("users").child(userId).setValue(user);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
+        //FirebaseUser user = mAuth.getCurrentUser();
+        //firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override

@@ -3,4 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+
+
+
+    <color name="btnFocusBlue">#2196f5</color>
+    <color name="menuItemSelected">#2196f5</color>
+    <color name="menuItemNotSelected">#417FAF</color>
+    <color name="colorGrayBackground">#C6C6C6</color>
+    <color name="activityBackground">#FFFAFAFA</color>
+    <color name="colorBlack">#000</color>
 </resources>
