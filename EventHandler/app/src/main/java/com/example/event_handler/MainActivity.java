@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.navigation_friends:
                             selectedFragment = new FriendsFragment();
                             break;
+                        case R.id.navigation_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 

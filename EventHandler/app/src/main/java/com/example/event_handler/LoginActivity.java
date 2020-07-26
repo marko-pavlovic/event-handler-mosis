@@ -74,9 +74,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        if(firebaseAuth.getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-        }
+//        if(firebaseAuth.getCurrentUser()!=null){          // potrebno za posle
+//            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//        }
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +131,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             LoginActivity.this.curentUser = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Authentication success.",
                                     Toast.LENGTH_SHORT).show();
+//                            UserSingleton user = UserSingleton.getInstance();
+////                            user.GetCurrentUser();
                             startActivity(new Intent(getApplicationContext(),MejnActivity.class));
                             //test
                             //downloadUserInfo(MainActivity.this.curentUser.getUid());

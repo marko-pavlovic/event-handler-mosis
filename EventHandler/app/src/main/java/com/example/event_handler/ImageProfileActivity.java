@@ -3,6 +3,7 @@ package com.example.event_handler;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -234,6 +235,7 @@ public class ImageProfileActivity extends AppCompatActivity implements View.OnCl
 
 		}
 	}
+
 	private void backToSingIn()
 	{
 		Intent intent = new Intent(ImageProfileActivity.this, LoginActivity.class);

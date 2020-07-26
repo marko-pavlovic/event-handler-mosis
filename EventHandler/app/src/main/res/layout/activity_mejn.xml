@@ -47,4 +47,10 @@
         android:layout_height="wrap_content"
         android:text="Add picture" />
 
+    <Button
+        android:id="@+id/btnMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start main activity" />
+
 </LinearLayout>

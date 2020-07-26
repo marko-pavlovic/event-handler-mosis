@@ -1,6 +1,5 @@
 package com.example.event_handler;
 
-import android.net.Uri;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,29 +14,36 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class User {
+public class UserSingleton {
 
     public String firstName, lastName, email, username, phone, latitude, longitude, imageURL, currentEvent, registrationToken, signedOut, visible, profilePictureStorageName;
     public int checkins = 1000000000;
     public List<String> friends;
     public HashMap<String, Boolean> receivedEventNotif;
     public List<String> friendRequests;
+    private static UserSingleton UserObject;
 
-    User user;
+    UserSingleton user;
     private FirebaseUser FBUser;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Users");
     private DatabaseReference mDatabaseUserID;
 
-    public User() {
+    public UserSingleton() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String FirstName, String LastName, String email, String username, String phone, String profilePictureStorageName)
+    public static UserSingleton getInstance(){
+        if(UserObject == null)
+            UserObject = new UserSingleton();
+        return UserObject;
+    }
+
+    public void DeleteUser(){
+        UserObject = null;
+    }
+
+    public UserSingleton(String FirstName, String LastName, String email, String username, String phone, String profilePictureStorageName)
     {
         this.firstName = FirstName;
         this.lastName = LastName;
@@ -47,7 +53,7 @@ public class User {
         this.profilePictureStorageName = profilePictureStorageName;
     }
 
-    public User(String FirstName, String LastName, String email, String username, String phone)
+    public UserSingleton(String FirstName, String LastName, String email, String username, String phone)
     {
         this.firstName = FirstName;
         this.lastName = LastName;
@@ -56,7 +62,7 @@ public class User {
         this.phone = phone;
     }
 
-    public User(String firstName, String lastName, String email, String username, String phone, String latitude, String longitude, String imageURL, int checkins, String currentEvent, String registrationToken, List<String> friends, String signedOut, String visible, HashMap<String, Boolean> receivedEventNotif) {
+    public UserSingleton(String firstName, String lastName, String email, String username, String phone, String latitude, String longitude, String imageURL, int checkins, String currentEvent, String registrationToken, List<String> friends, String signedOut, String visible, HashMap<String, Boolean> receivedEventNotif) {
 
         this.friends = friends;
         this.firstName = firstName;
@@ -76,7 +82,7 @@ public class User {
 
     }
 
-    public User(User object){
+    public UserSingleton(UserSingleton object){
         this.username = object.username;
         this.firstName = object.firstName;
         this.lastName = object.lastName;
@@ -91,12 +97,12 @@ public class User {
         mDatabaseUserID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User.this.firstName = dataSnapshot.child("firstName").getValue().toString();
-                User.this.lastName = dataSnapshot.child("lastName").getValue().toString();
-                User.this.username = dataSnapshot.child("username").getValue().toString();
-                User.this.email = dataSnapshot.child("email").getValue().toString();
-                User.this.phone = dataSnapshot.child("phone").getValue().toString();
-                User.this.profilePictureStorageName = dataSnapshot.child("profilePictureStorageName").getValue().toString();
+                UserSingleton.this.firstName = dataSnapshot.child("firstName").getValue().toString();
+                UserSingleton.this.lastName = dataSnapshot.child("lastName").getValue().toString();
+                UserSingleton.this.username = dataSnapshot.child("username").getValue().toString();
+                UserSingleton.this.email = dataSnapshot.child("email").getValue().toString();
+                UserSingleton.this.phone = dataSnapshot.child("phone").getValue().toString();
+                UserSingleton.this.profilePictureStorageName = dataSnapshot.child("profilePictureStorageName").getValue().toString();
 
                 //user = new User(FirstName,LastName,Email,UserName,Phone,profilePictureStorageName);
             }

@@ -21,9 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MejnActivity extends AppCompatActivity {
     TextView textView;
-    Button btnDeleteUser,btnLogout,btnUploadToDatabase, btnAddPicture;
+    Button btnDeleteUser,btnLogout,btnUploadToDatabase, btnAddPicture, btnMainActivity;
     FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener  authStateListener;
+    private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private DatabaseReference dbrMessage;
@@ -42,13 +42,21 @@ public class MejnActivity extends AppCompatActivity {
         btnAddPicture =(Button) findViewById(R.id.btnAddPicture);
         btnLogout =(Button) findViewById(R.id.logout);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        btnMainActivity =(Button) findViewById(R.id.btnMain);
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
+
+        //final UserSingleton currentUser;
+        //currentUser = UserSingleton.getInstance();
+        //currentUser.GetCurrentUser();
+
+        String asd = "asd";
+
         if(user != null)
         {
-            textView.setText("Hi " + user.getPhoneNumber());
+            textView.setText("Hi " );
         }
         else
         {
@@ -79,6 +87,13 @@ public class MejnActivity extends AppCompatActivity {
             }
         });
 
+        btnMainActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
         btnDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +117,7 @@ public class MejnActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
+                //currentUser.DeleteUser();
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 finish();
             }
