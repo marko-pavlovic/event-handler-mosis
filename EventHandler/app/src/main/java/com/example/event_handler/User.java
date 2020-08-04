@@ -1,5 +1,7 @@
 package com.example.event_handler;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
@@ -12,26 +14,31 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+
+import io.paperdb.Paper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
 
     public String firstName, lastName, email, username, phone, latitude, longitude, imageURL, currentEvent, registrationToken, signedOut, visible, profilePictureStorageName;
-    public int checkins = 1000000000;
+    //public int checkins = 1000000000;
     public List<String> friends;
     public HashMap<String, Boolean> receivedEventNotif;
     public List<String> friendRequests;
+    public User pomUser;
+    //public Bitmap profilePicture;
 
-    User user;
-    private FirebaseUser FBUser;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Users");
-    private DatabaseReference mDatabaseUserID;
+    transient User user;
+    transient private FirebaseUser FBUser;
+    transient FirebaseDatabase database = FirebaseDatabase.getInstance();
+    transient DatabaseReference myRef = database.getReference("Users");
+    transient private DatabaseReference databaseReference;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -67,7 +74,7 @@ public class User {
         this.latitude = latitude;
         this.longitude = longitude;
         this.imageURL = imageURL;
-        this.checkins = checkins;
+        //this.checkins = checkins;
         this.currentEvent = currentEvent;
         this.registrationToken = registrationToken;
         this.signedOut = signedOut;
@@ -85,12 +92,17 @@ public class User {
         this.imageURL = object.imageURL;
     }
 
-     public void GetCurrentUser(){
-        FBUser = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabaseUserID = FirebaseDatabase.getInstance().getReference().child("Users").child(FBUser.getUid());
-        mDatabaseUserID.addValueEventListener(new ValueEventListener() {
+     public User GetCurrentUser(String UId){
+        //Paper.init(ctx);
+         FBUser = FirebaseAuth.getInstance().getCurrentUser();
+        //pomUser = Paper.book(UId).read("userInfo");
+        //Log.d("gcu","pre baze " + pomUser.firstName);
+         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(UId);
+         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //pomUser = (User) dataSnapshot.getValue();
+                //Log.d("gcu",pomUser.firstName);
                 User.this.firstName = dataSnapshot.child("firstName").getValue().toString();
                 User.this.lastName = dataSnapshot.child("lastName").getValue().toString();
                 User.this.username = dataSnapshot.child("username").getValue().toString();
@@ -106,11 +118,15 @@ public class User {
                 Log.d("Class GetCurrentUser", "Failed to create user");
             }
         });
-
+        return User.this;
     }
 
-    public void addFriend(String id){
-        friends.add(id);
+
+    public void addFriend(String UId){
+        friends.add(UId);
+        FBUser = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("friends").child(FBUser.getUid());
+        databaseReference.setValue(UId);
     }
 
     @Exclude

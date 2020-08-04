@@ -1,11 +1,12 @@
 package com.example.event_handler;
 
+import android.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
     }
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new ProfileFragment();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
                     return true;
                 }

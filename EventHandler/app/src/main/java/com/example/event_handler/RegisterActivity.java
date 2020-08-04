@@ -45,10 +45,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+import io.paperdb.Paper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+
+import io.paperdb.Paper;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -95,6 +98,8 @@ public class RegisterActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mStorageRef = FirebaseStorage.getInstance().getReference("ProfileImages");
+
+        Paper.init(this);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
     }
 
-    private void UploadImageToStorage(){
+    private void SaveAndUploadImageToStorage(){
         ImgStorageLink = System.currentTimeMillis()+".jpg"; //+getExtension(imgUri)
         StorageReference ref = mStorageRef.child(ImgStorageLink);
         ref.putFile(imgUri)
@@ -200,22 +205,30 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Profile picture failed to upload", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
 //        StorageReference ref = mStorageRef.child(ImgStorageLink);
-//        Bitmap bitmap = null;
-//        try {
-//            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imgUri);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        ByteArrayOutputStream boas = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG,90, boas);
-//        ref.putBytes(boas.toByteArray())
-//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        Toast.makeText(RegisterActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imgUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ByteArrayOutputStream boas = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,90, boas);
+        //Paper.book(user.getUid()).write("userProfilePicture", bitmap);
+        new ImageSaver(this)
+                .setDirectoryName(user.getUid())
+                .setFileName("userProfilePicture")
+                .save(bitmap);
+
+        ref.putBytes(boas.toByteArray())
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(RegisterActivity.this, "Successfully saved to storage", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 
@@ -228,7 +241,10 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 firebaseAuth = FirebaseAuth.getInstance();
                                 user = FirebaseAuth.getInstance().getCurrentUser();
-                                UploadImageToStorage();
+                                SaveAndUploadImageToStorage();
+
+                                Paper.book(user.getUid()).write("userInfo", getUserData());
+
                                 writeNewUser(user.getUid(), getUserData());
 
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()

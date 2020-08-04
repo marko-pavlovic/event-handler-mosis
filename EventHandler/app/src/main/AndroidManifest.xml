@@ -26,7 +26,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".FriendsActivity"></activity>
         <activity android:name=".my_camera" />
         <activity android:name=".MejnActivity" />
         <activity android:name=".NewPassActivity" />

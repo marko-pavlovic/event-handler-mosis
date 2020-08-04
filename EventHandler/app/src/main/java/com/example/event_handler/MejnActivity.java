@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,10 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import io.paperdb.Paper;
 
 public class MejnActivity extends AppCompatActivity {
     TextView textView;
@@ -31,6 +34,8 @@ public class MejnActivity extends AppCompatActivity {
     DatabaseReference myRef = database.getReference("Users");
     private DatabaseReference mDatabase;
     String uriProfileImage;
+    User pom;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class MejnActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-
+        Paper.init(this);
         //final UserSingleton currentUser;
         //currentUser = UserSingleton.getInstance();
         //currentUser.GetCurrentUser();
@@ -56,7 +61,23 @@ public class MejnActivity extends AppCompatActivity {
 
         if(user != null)
         {
-            textView.setText("Hi " );
+            pom = new User().GetCurrentUser(user.getUid());
+            dbrMessage = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid());
+            dbrMessage.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    pom.firstName = dataSnapshot.child("firstName").getValue().toString();
+                    pom.lastName = dataSnapshot.child("lastName").getValue().toString();
+
+                    textView.setText("Hi " + pom.firstName + " " + pom.lastName);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d("Class GetCurrentUser", "Failed to create user");
+                }
+            });
+
         }
         else
         {

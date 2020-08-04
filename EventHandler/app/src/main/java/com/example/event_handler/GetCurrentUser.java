@@ -1,7 +1,10 @@
 package com.example.event_handler;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -9,7 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-
+import io.paperdb.Paper;
 
 public class GetCurrentUser {
     User user;
@@ -20,7 +23,13 @@ public class GetCurrentUser {
 
     public GetCurrentUser(){}
 
-    public User GetCurrentUser(){
+    public User Get(Context ctx){
+        Paper.init(ctx);
+        FBUser = FirebaseAuth.getInstance().getCurrentUser();
+        Boolean asd = Paper.exist(FBUser.getUid());
+        user = (User) Paper.book(FBUser.getUid()).read("userInfo");
+        String dsa = "asd";
+
         mDatabaseUserID = FirebaseDatabase.getInstance().getReference().child("Users").child(FBUser.getUid());
         mDatabaseUserID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -33,6 +42,7 @@ public class GetCurrentUser {
                 String profilePictureStorageName = dataSnapshot.child("profilePictureStorageName").getValue().toString();
 
                 user = new User(FirstName,LastName,Email,UserName,Phone,profilePictureStorageName);
+                String opgkf = "asds";
             }
 
             @Override
@@ -42,5 +52,9 @@ public class GetCurrentUser {
         });
 
         return user;
+    }
+
+    public void GetProfilePicture(Context ctx){
+
     }
 }
