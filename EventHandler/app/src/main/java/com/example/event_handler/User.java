@@ -26,12 +26,34 @@ import java.util.List;
 
 public class User implements Serializable {
 
-    public String firstName, lastName, email, username, phone, latitude, longitude, imageURL, currentEvent, registrationToken, signedOut, visible, profilePictureStorageName;
+    public String firstName;
+    public String lastName;
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String email;
+    public String username;
+    public String phone;
+    public String latitude;
+    public String longitude;
+    public String imageURL;
+    public String currentEvent;
+    public String registrationToken;
+    public String signedOut;
+    public String visible;
+    public String profilePictureStorageName;
     //public int checkins = 1000000000;
     public List<String> friends;
     public HashMap<String, Boolean> receivedEventNotif;
     public List<String> friendRequests;
     public User pomUser;
+    private static final User instance = new User();
     //public Bitmap profilePicture;
 
     transient User user;
@@ -42,6 +64,10 @@ public class User implements Serializable {
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public static User getInstance(){
+        return instance;
     }
 
     public User(String FirstName, String LastName, String email, String username, String phone, String profilePictureStorageName)

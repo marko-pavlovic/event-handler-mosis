@@ -144,6 +144,8 @@ public class MejnActivity extends AppCompatActivity {
             }
         });
 
+    User ddd = User.getInstance();
+    String asggg = "sdas";
 
     }
 

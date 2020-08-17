@@ -8,7 +8,7 @@
 
 
     <GridView
-        android:id="@+id/grid"
+        android:id="@+id/gridEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -19,14 +19,14 @@
     </GridView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAddFriend"
+        android:id="@+id/fabAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_friend_add"
+        app:srcCompat="@drawable/ic_baseline_add_24"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@id/grid"
+        android:layout_alignRight="@id/gridEvents"
         />
 
 </RelativeLayout>

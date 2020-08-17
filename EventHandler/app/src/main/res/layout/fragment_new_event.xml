@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="28dp"
+            android:gravity="center"
+            android:layout_marginBottom="12dp"
+            android:text="Novi dogadjaj" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Naziv dogadjaja:"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="276dp"
+            tools:layout_editor_absoluteY="29dp" />
+
+        <EditText
+            android:id="@+id/editTextEventName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Naziv"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="55dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textview09"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Kategorija:"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="28dp"
+                tools:layout_editor_absoluteY="117dp" />
+
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="176dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:entries="@array/spinnerItems"
+                tools:layout_editor_absoluteX="200dp"
+                tools:layout_editor_absoluteY="113dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vreme i datum pocetka:"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="157dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextStartDateAndTime"
+                android:layout_width="327dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="47dp"
+                tools:layout_editor_absoluteY="189dp" />
+
+            <ImageButton
+                android:id="@+id/buttonStartDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_baseline_date_range_24"
+                tools:layout_editor_absoluteX="270dp"
+                tools:layout_editor_absoluteY="212dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vreme i datum zavrsetka"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="213dp">
+
+            <EditText
+                android:id="@+id/editTextEndDateAndTime"
+                android:layout_width="321dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="275dp" />
+
+            <ImageButton
+                android:id="@+id/buttonEndDateTime"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_baseline_date_range_24"
+                tools:layout_editor_absoluteX="272dp"
+                tools:layout_editor_absoluteY="264dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opis:"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="329dp" />
+
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Dodajte opis"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="354dp" />
+
+
+
+        <Button
+            android:id="@+id/buttonSelectLocation"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Izaberi lokaciju na mapi"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAddEventPicture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/buttonAddEventPicture"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Dodaj sliku dogadjaja"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="498dp" />
+
+        <Button
+            android:id="@+id/buttonSaveEvent"
+
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Sacuvaj"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="498dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

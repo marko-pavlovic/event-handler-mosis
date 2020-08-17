@@ -1,18 +1,13 @@
 package com.example.event_handler;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,11 +30,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -50,8 +42,6 @@ import io.paperdb.Paper;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-
-import io.paperdb.Paper;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -68,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "myTag";
     private DatabaseReference dbrMessage;
     private DatabaseReference mDatabase;
-    private FirebaseUser user;
+    private FirebaseUser FBUser;
 
     ImageView ImgViewProfile;
     Uri imgUri;
@@ -92,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         ImgViewProfile = (ImageView) findViewById(R.id.ImgViewProfilePicture);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FBUser = FirebaseAuth.getInstance().getCurrentUser();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -218,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG,90, boas);
         //Paper.book(user.getUid()).write("userProfilePicture", bitmap);
         new ImageSaver(this)
-                .setDirectoryName(user.getUid())
+                .setDirectoryName(FBUser.getUid())
                 .setFileName("userProfilePicture")
                 .save(bitmap);
 
@@ -240,12 +230,12 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 firebaseAuth = FirebaseAuth.getInstance();
-                                user = FirebaseAuth.getInstance().getCurrentUser();
+                                FBUser = FirebaseAuth.getInstance().getCurrentUser();
                                 SaveAndUploadImageToStorage();
 
-                                Paper.book(user.getUid()).write("userInfo", getUserData());
+                                Paper.book(FBUser.getUid()).write("userInfo", getUserData());
 
-                                writeNewUser(user.getUid(), getUserData());
+                                writeNewUser(FBUser.getUid(), getUserData());
 
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(getUserData().firstName + getUserData().lastName)
@@ -272,7 +262,7 @@ public class RegisterActivity extends AppCompatActivity {
         UserName = (EditText) findViewById(R.id.etUsername1);
         Phone = (EditText) findViewById(R.id.etPhoneNumber);
         User result = new User(FirstName.getText().toString(), LastName.getText().toString(), Email.getText().toString(), UserName.getText().toString(), Phone.getText().toString(), ImgStorageLink);
-
+        User.getInstance().setEmail(Email.getText().toString());
         return result;
     }
 

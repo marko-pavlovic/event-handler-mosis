@@ -57,7 +57,6 @@ public class AddFriendFragment extends Fragment {
         btnAddFriend = (Button) view.findViewById(R.id.btnAddFriend);
         btnRemoveFriend = (Button) view.findViewById(R.id.btnDeleteFriend);
         imgviewSlika = (ImageView) view.findViewById(R.id.imgviewSlika);
-
         return view;
     }
 
@@ -69,8 +68,9 @@ public class AddFriendFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String asdd = "Assdd";
-                mDatabaseUserID.child(FBUser.getUid()).setValue(etAddFriendUid.getText().toString());
-                mDatabaseUserID.child(etAddFriendUid.getText().toString()).setValue(FBUser.getUid()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                FriendList.getInstance().addFriend(etAddFriendUid.getText().toString());
+                mDatabaseUserID.child(FBUser.getUid()).child(etAddFriendUid.getText().toString()).setValue(etAddFriendUid.getText().toString());
+                mDatabaseUserID.child(etAddFriendUid.getText().toString()).child(FBUser.getUid()).setValue(FBUser.getUid()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getContext(), "Friend added successfully", Toast.LENGTH_LONG).show();
@@ -82,6 +82,7 @@ public class AddFriendFragment extends Fragment {
         btnRemoveFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FriendList.getInstance().removeFriend(etAddFriendUid.getText().toString());
                 mDatabaseUserID.child(FBUser.getUid()).child(etAddFriendUid.getText().toString()).removeValue();
                 mDatabaseUserID.child(etAddFriendUid.getText().toString()).child(FBUser.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
