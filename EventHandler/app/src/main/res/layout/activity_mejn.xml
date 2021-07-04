@@ -53,4 +53,11 @@
         android:layout_height="wrap_content"
         android:text="Start main activity" />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="#BA6E6E"
+        android:text="CheckBox" />
+
 </LinearLayout>

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#006891</color>
-    <color name="colorPrimaryDark">#003e57</color>
-    <color name="colorAccent">#cc4949</color>\
+    <color name="colorPrimary">#3399FF</color>
+    <color name="colorPrimaryDark">#006ccb</color>
+    <color name="colorAccent">#3399FF</color>
+    <color name="colorBackWhite">#FFFFFF</color>
+    <color name="colorEventBackText">#68C8C8C8</color>
+    <color name="colorBack">#33E1FF</color>
+    <color name="colorBlack">#000000</color>
+
     <color name="lightBlueGrayBackground">#f2f4f5</color>
-
-
-
-
     <color name="btnFocusBlue">#2196f5</color>
     <color name="menuItemSelected">#2196f5</color>
     <color name="menuItemNotSelected">#417FAF</color>
     <color name="colorGrayBackground">#C6C6C6</color>
     <color name="activityBackground">#FFFAFAFA</color>
-    <color name="colorBlack">#000</color>
+    <color name="DarkGray">#404040</color>
+
 </resources>

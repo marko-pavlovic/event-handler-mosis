@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.event_handler">
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -25,46 +24,51 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ResetPasswordActivity"></activity>
 
-        <activity android:name=".my_camera" />
-        <activity android:name=".MejnActivity" />
-        <activity android:name=".NewPassActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".GlavniActivity" />
+        <service
+            android:name=".MyMessagingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".FriendsActivity" />
+        <activity android:name=".LeaderboardsActivity" />
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".EventGalleryActivity" />
         <activity
-            android:name=".ImageProfileActivity"
-            android:parentActivityName=".MejnActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.event_handler.MejnActivity" />
-        </activity>
+            android:name=".EventActivity"
+            android:theme="@style/AppThemeMat" />
+        <activity android:name=".FilterActivity" />
         <activity
-            android:name=".MapActivity"
-            android:label="@string/title_activity_map"
-            android:parentActivityName=".GlavniActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.event_handler.GlavniActivity" />
-        </activity>
+            android:name=".EventsActivity"
+            android:theme="@style/AppThemeMat" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".CategoryInit" />
+        <activity android:name=".CreateEventActivity" />
+        <activity
+            android:name=".CreateAccountActivity"
+            android:theme="@style/AppThemeNoBar" />
         <activity
             android:name=".LoginActivity"
-            android:label="Regi">
+            android:theme="@style/AppThemeNoBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppThemeMatNoBar" />
     </application>
 
 </manifest>

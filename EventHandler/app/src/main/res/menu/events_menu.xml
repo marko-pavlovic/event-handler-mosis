@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/filter_events"
+        android:icon="@drawable/settings"
+        app:showAsAction="never"
+        android:title="@string/filter" />
+    <item
+        android:id="@+id/sort_by_events"
+        android:icon="@drawable/sort"
+        app:showAsAction="never"
+        android:title="@string/sort" >
+        <menu>
+            <item android:id="@+id/sort_by_name"
+                android:title="@string/name"></item>
+            <item android:id="@+id/sort_by_distance"
+                android:title="@string/distance"></item>
+            <item android:id="@+id/sort_by_price"
+                android:title="@string/price"></item>
+            <item android:id="@+id/sort_by_occupancy"
+                android:title="@string/occupancy">
+            </item>
+            <item android:id="@+id/sort_by_rating"
+                android:title="@string/rating">
+            </item>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/asc_events"
+        android:icon="@drawable/up_arrow"
+        app:showAsAction="never"
+        android:title="@string/asc" />
+    <item
+        android:id="@+id/desc_events"
+        android:icon="@drawable/arrow_down"
+        app:showAsAction="never"
+        android:title="@string/desc" />
+
+</menu>
